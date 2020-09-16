@@ -8,10 +8,13 @@
         tools:context=".activity.NewPodcastActivity">
 
     <LinearLayout
+        android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#ffffff"
             android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNext"
     >
 
         <com.google.android.material.appbar.AppBarLayout
@@ -200,73 +203,27 @@
                             android:textCursorDrawable="@drawable/cursor_color"/>
                 </LinearLayout>
 
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="20dp">
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="Куда получать деньги"></TextView>
-
-                    <Spinner
-                            android:id="@+id/paymentAccountSpinner"
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/round_dropdown"
-                            android:dropDownWidth="fill_parent"
-                            android:entries="@array/catNames"
-
-                            android:minHeight="40dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                        android:id="@+id/authorLayout"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="20dp">
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="Автор"></TextView>
-
-                    <Spinner
-                            android:id="@+id/authorSpinner"
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/round_dropdown"
-                            android:dropDownWidth="fill_parent"
-                            android:entries="@array/authorNames"
-
-                            android:minHeight="40dp"/>
-                </LinearLayout>
-
-                <Button
-                        android:id="@+id/buttonNext"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:background="@drawable/btn_bg"
-                        android:enabled="false"
-                        android:onClick="onButtonNextClick"
-                        android:paddingBottom="5dp"
-                        android:text="Далее"
-                        android:textAllCaps="false"
-
-                        android:textColor="#ffffff"/>
 
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonNext"
+
+        app:layout_constraintTop_toTopOf="@+id/main"
+        app:layout_constraintTop_toBottomOf="parent"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/btn_bg"
+        android:enabled="false"
+        android:paddingBottom="5dp"
+        android:text="Далее"
+        android:textAllCaps="false"
+
+        android:textColor="#ffffff"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
