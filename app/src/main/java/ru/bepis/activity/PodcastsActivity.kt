@@ -27,7 +27,7 @@ class PodcastsActivity : AppCompatActivity() {
     }
 
     fun onPodcastCreateButtonClicked(view: View) {
-        val intent = Intent(this, AudioTrimmerActivity::class.java)
+        val intent = Intent(this, NewPodcastActivity::class.java)
         startActivity(intent)
     }
 
