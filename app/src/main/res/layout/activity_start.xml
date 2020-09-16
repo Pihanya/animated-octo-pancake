@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryBg"
     tools:context=".activity.PodcastsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -64,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:fontFamily="robot"
+            android:fontFamily="@font/roboto"
             android:fontWeight="600"
             android:text="@string/main_placeholder"
             android:textAlignment="center"
