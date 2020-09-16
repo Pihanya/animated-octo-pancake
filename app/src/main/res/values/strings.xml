@@ -13,4 +13,6 @@
     <string name="main_btn">Добавить подкаст</string>
     <string name="main_placeholder">Добавьте первый подкаст</string>
     <string name="sub_placeholder">Добавляйте, редактируйте и делитесь подкастами вашего сообщества.</string>
+
+    <string name="new_podcast_activity_header_title">Новый подкаст</string>
 </resources>
