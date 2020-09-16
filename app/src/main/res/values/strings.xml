@@ -15,4 +15,8 @@
     <string name="sub_placeholder">Добавляйте, редактируйте и делитесь подкастами вашего сообщества.</string>
 
     <string name="new_podcast_activity_header_title">Новый подкаст</string>
+
+    <string name="edit_podcast_activity_timecodes_title">ТАЙМКОДЫ</string>
+    <string name="edit_podcast_activity_add_timecode_button_text">Добавить таймкод</string>
+    <string name="edit_podcast_activity_timecodes_explanation">Отметки времени с названием темы. Позволяют слушателям легче путешествовать по подкасту.</string>
 </resources>
