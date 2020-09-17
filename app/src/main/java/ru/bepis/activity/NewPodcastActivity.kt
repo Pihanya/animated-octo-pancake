@@ -7,19 +7,27 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_new_podcast.*
 import ru.bepis.R
 import ru.bepis.utils.Store
 import java.io.BufferedInputStream
 import java.io.InputStream
+import java.text.ParseException
 
 
 class NewPodcastActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_podcast)
+
+        listOf(nameEditText, descriptionEditText)
+            .forEach { it.addTextChangedListener(createInfoEditTextWatcher(it)) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -50,6 +58,7 @@ class NewPodcastActivity : AppCompatActivity() {
 
                 Store.audioUri = uri
                 Store.audioFilename = name
+                tryToUnlockButton()
 
                 pickedTrackLayout.visibility = View.VISIBLE
                 TrackForm.visibility = View.GONE
@@ -88,6 +97,8 @@ class NewPodcastActivity : AppCompatActivity() {
     }
 
     fun onRemoveImageClick(view: View) {
+        Store.audioUri = null
+        tryToUnlockButton()
         loadedImageLayout.visibility = View.GONE
         iconViewForm.visibility = View.VISIBLE
     }
@@ -102,5 +113,56 @@ class NewPodcastActivity : AppCompatActivity() {
     fun onPodcastCreateButtonClicked(view: View) {
         val intent = Intent(this, ViewPodcastActivity::class.java)
         startActivity(intent)
+    }
+
+    fun onInfoEditTextChanged(editText: EditText, textBefore: String?) {
+        val text = editText.text?.toString()
+        if (text.isNullOrEmpty()) {
+            return
+        }
+
+        if (text.isBlank()) {
+            editText.setText("")
+            return
+        }
+
+        if (text == textBefore) {
+            return
+        }
+
+        when (editText.id) {
+            R.id.nameEditText -> Store.name = text
+            R.id.descriptionEditText -> Store.description = text
+        }
+
+        run {
+            tryToUnlockButton()
+        }
+    }
+
+    private fun tryToUnlockButton() {
+        val nameFilled = !Store.name.isNullOrBlank()
+        val descriptionFilled = !Store.description.isNullOrBlank()
+        val trackFilled = Store.audioUri != null
+
+        buttonNext.isEnabled = nameFilled && descriptionFilled && trackFilled
+    }
+
+    private fun createInfoEditTextWatcher(editText: EditText) = object : TextWatcher {
+        var textBefore: String? = null
+
+        override fun beforeTextChanged(
+            s: CharSequence?,
+            start: Int, count: Int, after: Int
+        ) {
+            textBefore = s?.toString()
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            onInfoEditTextChanged(editText, textBefore)
+        }
+
+        override fun afterTextChanged(s: Editable) {
+        }
     }
 }
