@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.ScaleGestureDetector
 import android.view.View
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.masoudss.lib.SeekBarOnProgressChanged
 import com.masoudss.lib.WaveformSeekBar
+import kotlinx.android.synthetic.main.activity_choose_music.*
 import kotlinx.android.synthetic.main.activity_edit_podcast.*
+import kotlinx.android.synthetic.main.activity_edit_podcast.headerToolbar
 import ru.bepis.R
 import ru.bepis.audio.SoundFile
 import ru.bepis.utils.Store
@@ -71,7 +74,6 @@ class EditPodcastActivity : AppCompatActivity() {
     private var isFadeIn = false
     private var isFadeOut = false
 
-
     // TODO
     private lateinit var mGestureDetector: GestureDetector
     private lateinit var mScaleGestureDetector: ScaleGestureDetector
@@ -91,6 +93,20 @@ class EditPodcastActivity : AppCompatActivity() {
 
         player = MediaPlayer.create(this, Store.audioUri)
         rightBorderMillis = player.duration
+
+        headerToolbar.setNavigationOnClickListener(View.OnClickListener {
+            val childCount = timecodesContainer.getChildCount();
+            Store.timeCodes.clear()
+            for (i in 0..(childCount-1)) {
+                val v = timecodesContainer.getChildAt(i) as LinearLayout
+                val nameEventView = v.getChildAt(0) as EditText
+                val timeEventView = v.getChildAt(1) as EditText
+
+                Store.timeCodes.add("${timeEventView.text} - ${nameEventView.text}")
+            }
+
+            finish()
+        })
 
         player.setOnCompletionListener {
             currentPositionMillis = leftBorderMillis
