@@ -8,6 +8,8 @@ object Store {
     var description: String? = null
     var duration: String? = null
     var image: Bitmap? = null
+    var musicIsPicked: Boolean = false
+
 
     var audioUri: Uri? = null
     var audioFilename: String? = null

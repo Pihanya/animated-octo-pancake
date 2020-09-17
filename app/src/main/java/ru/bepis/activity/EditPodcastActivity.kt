@@ -203,7 +203,7 @@ class EditPodcastActivity : AppCompatActivity() {
     }
 
     fun onMusicButtonClick(view: View) {
-        val intent = Intent(this, NewPodcastActivity::class.java)
+        val intent = Intent(this, MusicSelectionActivity::class.java)
         startActivity(intent)
     }
 
