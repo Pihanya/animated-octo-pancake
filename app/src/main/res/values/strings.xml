@@ -20,6 +20,8 @@
     <string name="edit_podcast_activity_timecodes_title">ТАЙМКОДЫ</string>
     <string name="edit_podcast_activity_add_timecode_button_text">Добавить таймкод</string>
     <string name="edit_podcast_activity_timecodes_explanation">Отметки времени с названием темы. Позволяют слушателям легче путешествовать по подкасту.</string>
+    <string name="edit_podcast_activity_default_timecode_name">Начало обсуждения</string>
+    <string name="edit_podcast_activity_default_timecode_time">05:41</string>
 
     <string name="choose_music_activity_default_track_name">All of the Lights</string>
     <string name="choose_music_activity_default_track_artist">Kanye West</string>
