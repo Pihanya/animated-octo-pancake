@@ -31,6 +31,8 @@ class EditPodcastActivity : AppCompatActivity() {
         50, 60
     )
 
+    private val progressSteps = 100;
+
     private val fadeInBegin = intArrayOf(0, 15, 35, 75)
     private val fadeOutEnd = intArrayOf(90, 60, 30, 50, 60)
 
@@ -91,7 +93,7 @@ class EditPodcastActivity : AppCompatActivity() {
             override fun onProgressChanged(waveformSeekBar: WaveformSeekBar, progress: Int, fromUser: Boolean) {
 
                 if (fromUser) {
-                    player.seekTo((player.duration.toFloat() * (progress.toFloat() / 72f)).toInt());
+                    player.seekTo((player.duration.toFloat() * (progress.toFloat() / progressSteps)).toInt());
                 }
             }
         }
@@ -178,15 +180,15 @@ class EditPodcastActivity : AppCompatActivity() {
                 progressFuture!!.cancel(true)
                 progressFuture = null
             }
-            updateWaveFormProgress(samples.size)
+            updateWaveFormProgress(progressSteps)
         }, timeLeft.toLong(), TimeUnit.MILLISECONDS)
     }
 
     fun updateWaveFormProgress(value: Int? = null) {
         if (value!= null) {
-            waveformSeekBar.progress = value
+            waveformSeekBar.progress = value;
         } else if (player.duration > 0)  {
-            waveformSeekBar.progress = samples.size * player.currentPosition/player.duration
+            waveformSeekBar.progress = progressSteps * player.currentPosition/player.duration;
         } else {
             waveformSeekBar.progress = 0;
         }
