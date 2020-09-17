@@ -6,7 +6,10 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_new_podcast.*
 import kotlinx.android.synthetic.main.activity_view_podcast.*
+import kotlinx.android.synthetic.main.activity_view_podcast.headerToolbar
+import kotlinx.android.synthetic.main.activity_view_podcast.imageView
 import ru.bepis.R
 import ru.bepis.utils.Store
 
@@ -17,6 +20,11 @@ class ViewPodcastActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_podcast)
         if (Store.image != null)
             imageView.setImageBitmap(Store.image)
+
+        headerToolbar.setNavigationOnClickListener(View.OnClickListener {
+            finish()
+        })
+
 
         Store.duration = "12:34"
         duration.text = "Длительность: ${Store.duration}"

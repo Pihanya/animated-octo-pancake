@@ -25,6 +25,10 @@ class NewPodcastActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_podcast)
 
+        headerToolbar.setNavigationOnClickListener(View.OnClickListener {
+            finish()
+        })
+
         listOf(nameEditText, descriptionEditText)
             .forEach { it.addTextChangedListener(createInfoEditTextWatcher(it)) }
     }
