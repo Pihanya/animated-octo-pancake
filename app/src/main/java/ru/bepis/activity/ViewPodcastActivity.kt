@@ -6,10 +6,8 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_new_podcast.*
 import kotlinx.android.synthetic.main.activity_view_podcast.*
 import kotlinx.android.synthetic.main.activity_view_podcast.headerToolbar
-import kotlinx.android.synthetic.main.activity_view_podcast.imageView
 import ru.bepis.R
 import ru.bepis.utils.Store
 
@@ -24,9 +22,10 @@ class ViewPodcastActivity : AppCompatActivity() {
         headerToolbar.setNavigationOnClickListener(View.OnClickListener {
             finish()
         })
+        titleP.text = Store.name
+        descriptionText.text = Store.description
 
 
-        Store.duration = "12:34"
         duration.text = "Длительность: ${Store.duration}"
 
         for (timeCodeModel in Store.timeCodes) {
