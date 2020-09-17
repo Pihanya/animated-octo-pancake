@@ -97,7 +97,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -112,23 +112,41 @@
             android:paddingRight="4dp">
 
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
+
             <include layout="@layout/music_row" />
 
         </LinearLayout>
