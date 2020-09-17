@@ -233,7 +233,6 @@
 
                         <ImageView
                             android:layout_marginStart="12dp"
-                            android:onClick="onPickImageClick"
                             android:layout_marginTop="12dp"
                             android:layout_marginEnd="12dp"
                             android:layout_marginBottom="12dp"
@@ -274,7 +273,7 @@
                         android:layout_width="match_parent"
                         android:layout_gravity="center"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="20dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/outline_button"
                         android:enabled="false"
@@ -298,7 +297,7 @@
                     android:id="@+id/ch1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="10dp"
                     android:text="Ненормативный контент"/>
 
                 <CheckBox

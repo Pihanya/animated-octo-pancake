@@ -4,12 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.BitmapFactory
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +18,6 @@ import ru.bepis.R
 import ru.bepis.utils.Store
 import java.io.BufferedInputStream
 import java.io.InputStream
-import java.text.ParseException
 
 
 class NewPodcastActivity : AppCompatActivity() {
@@ -55,10 +54,17 @@ class NewPodcastActivity : AppCompatActivity() {
 //                fundView.image = bmp
 
                 val name = getFileName(uri!!)
+                val durationMillis = getFileDuration(uri)!!
 
                 Store.audioUri = uri
                 Store.audioFilename = name
+
                 tryToUnlockButton()
+                val minutesInt = durationMillis/1000/60
+                val minutes = minutesInt.toString().padStart(2, '0')
+                val seconds = (durationMillis/1000/60 - minutesInt*60).toString().padStart(2, '0')
+                durationText.text = "${minutes}:${seconds}"
+                trackName.text = name
 
                 pickedTrackLayout.visibility = View.VISIBLE
                 TrackForm.visibility = View.GONE
@@ -87,6 +93,12 @@ class NewPodcastActivity : AppCompatActivity() {
             }
         }
         return result
+    }
+
+    fun getFileDuration(uri: Uri): Int? {
+        val mp =
+            MediaPlayer.create(this, uri)
+        return mp.duration
     }
 
     fun onPickImageClick(view: View) {
