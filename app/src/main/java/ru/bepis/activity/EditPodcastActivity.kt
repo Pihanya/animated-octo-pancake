@@ -6,6 +6,8 @@ import android.view.GestureDetector
 import android.view.ScaleGestureDetector
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.masoudss.lib.SeekBarOnProgressChanged
+import com.masoudss.lib.WaveformSeekBar
 import kotlinx.android.synthetic.main.activity_edit_podcast.*
 import ru.bepis.R
 import ru.bepis.audio.SoundFile
@@ -85,6 +87,14 @@ class EditPodcastActivity : AppCompatActivity() {
         }
 
         waveformSeekBar.sample = samples
+        waveformSeekBar.onProgressChanged = object : SeekBarOnProgressChanged {
+            override fun onProgressChanged(waveformSeekBar: WaveformSeekBar, progress: Int, fromUser: Boolean) {
+
+                if (fromUser) {
+                    player.seekTo((player.duration.toFloat() * (progress.toFloat() / 72f)).toInt());
+                }
+            }
+        }
     }
 
     fun onPlayStopButtonClick(view: View) {
@@ -173,11 +183,17 @@ class EditPodcastActivity : AppCompatActivity() {
     }
 
     fun updateWaveFormProgress(value: Int? = null) {
-        if(value!= null) {
+        if (value!= null) {
             waveformSeekBar.progress = value
-        } else {
+        } else if (player.duration > 0)  {
             waveformSeekBar.progress = samples.size * player.currentPosition/player.duration
+        } else {
+            waveformSeekBar.progress = 0;
         }
+    }
+
+    fun onProgressChanged(waveformSeekBar: WaveformSeekBar, progress: Int, fromUser: Boolean) {
+
     }
 
     fun onRollbackButtonClick(view: View) {
