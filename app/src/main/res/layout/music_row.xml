@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingBottom="6dp"
     android:paddingTop="6dp"
+    android:onClick="onTrackClicked"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="horizontal">

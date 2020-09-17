@@ -16,11 +16,6 @@
         <activity
                 android:name=".activity.PodcastsActivity"
                 android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <activity android:name=".activity.NewPodcastActivity"
@@ -37,7 +32,15 @@
         </activity>
 
         <activity android:name=".activity.AudioTrimmerActivity"/>
-        <activity android:name=".activity.EditPodcastActivity"/>
+        <activity android:name=".activity.EditActivity" android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.MusicSelectionActivity" android:theme="@style/AppTheme.NoActionBar"/>
+
 
         <meta-data
             android:name="preloaded_fonts"

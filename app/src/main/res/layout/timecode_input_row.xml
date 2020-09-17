@@ -6,7 +6,6 @@
     android:paddingBottom="6dp"
     android:paddingTop="6dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
     android:orientation="horizontal">
 
     <EditText
@@ -14,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
-        android:layout_weight="1"
         android:background="@drawable/edittext_outlined_bg"
         android:ems="10"
         android:fontFamily="@font/roboto"
@@ -25,16 +23,14 @@
         android:paddingEnd="12dp"
         android:paddingRight="12dp"
         android:paddingBottom="10dp"
-        android:text="@string/edit_podcast_activity_default_timecode_name"
         android:textColor="@color/colorBlackText"
         android:textSize="15dp"
         app:lineHeight="20dp" />
 
     <EditText
         android:id="@+id/timecodeTime"
-        android:layout_width="76dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
+        android:layout_width="wrap_content"
         android:background="@drawable/edittext_outlined_bg"
         android:ems="10"
         android:fontFamily="@font/roboto"
@@ -45,7 +41,6 @@
         android:paddingEnd="12dp"
         android:paddingRight="12dp"
         android:paddingBottom="10dp"
-        android:text="@string/edit_podcast_activity_default_timecode_time"
         android:textColor="@color/colorBlackText"
         android:textSize="15dp"
         app:lineHeight="20dp" />
@@ -53,10 +48,12 @@
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
+        android:src="@drawable/cross"
         android:layout_height="match_parent"
-        android:layout_weight="0"
-        android:background="@android:color/transparent"
+        android:background="@android:color/white"
+        android:backgroundTint="@color/colorAccent"
         android:padding="13.5dp"
         android:scaleType="centerInside"
-        tools:srcCompat="@drawable/cross" />
+        tools:srcCompat="@drawable/cross"
+        />
 </LinearLayout>

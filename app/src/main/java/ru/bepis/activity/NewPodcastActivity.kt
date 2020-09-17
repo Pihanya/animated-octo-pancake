@@ -62,7 +62,8 @@ class NewPodcastActivity : AppCompatActivity() {
                 tryToUnlockButton()
                 val minutesInt = durationMillis/1000/60
                 val minutes = minutesInt.toString().padStart(2, '0')
-                val seconds = (durationMillis/1000/60 - minutesInt*60).toString().padStart(2, '0')
+                val secondsInt = (durationMillis/1000/60 - minutesInt*60)
+                val seconds = (if (secondsInt < 0) 0 else secondsInt).toString().padStart(2, '0')
                 val durationStr = "${minutes}:${seconds}"
                 Store.duration = durationStr
 
@@ -127,6 +128,11 @@ class NewPodcastActivity : AppCompatActivity() {
 
     fun onPodcastCreateButtonClicked(view: View) {
         val intent = Intent(this, ViewPodcastActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun onEditAudioButtonClicked(view: View) {
+        val intent = Intent(this, EditActivity::class.java)
         startActivity(intent)
     }
 
