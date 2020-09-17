@@ -15,7 +15,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
         android:layout_weight="0"
-        tools:srcCompat="@drawable/music_album" />
+        tools:src="@drawable/music_album" />
 
     <LinearLayout
         android:layout_width="match_parent"
