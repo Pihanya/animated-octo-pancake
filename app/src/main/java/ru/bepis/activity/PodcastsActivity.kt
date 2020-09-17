@@ -3,7 +3,6 @@ package ru.bepis.activity
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -27,8 +26,7 @@ class PodcastsActivity : AppCompatActivity() {
     private fun requestStoragePermission() {
         ActivityCompat.requestPermissions(
             this@PodcastsActivity, arrayOf(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.RECORD_AUDIO
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
             ),
             REQUEST_ID_PERMISSIONS
         )

@@ -155,6 +155,11 @@ class NewPodcastActivity : AppCompatActivity() {
         }
     }
 
+    fun onEditPodcastButtonClick(view: View) {
+        val intent = Intent(this, EditPodcastActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun tryToUnlockButton() {
         val nameFilled = !Store.name.isNullOrBlank()
         val descriptionFilled = !Store.description.isNullOrBlank()

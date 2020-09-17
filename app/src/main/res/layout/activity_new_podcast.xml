@@ -276,11 +276,13 @@
                         android:layout_marginBottom="20dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/outline_button"
-                        android:enabled="false"
+                        android:enabled="true"
                         android:text="Редактировать"
                         android:textAllCaps="false"
 
                         android:textColor="@color/colorSecondary"
+
+                        android:onClick="onEditPodcastButtonClick"
                         />
 
                 </LinearLayout>
