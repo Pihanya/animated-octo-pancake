@@ -1,28 +1,59 @@
 package ru.bepis.activity
 
 import android.media.MediaPlayer
-import android.media.VolumeShaper
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.ScaleGestureDetector
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_edit_podcast.*
 import ru.bepis.R
 import ru.bepis.audio.SoundFile
 import ru.bepis.utils.Store
 import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 
 
 class EditPodcastActivity : AppCompatActivity() {
 
+    private val times =
+        floatArrayOf(0f, 0.25f, 0.5f, 0.75f, 1f) // can add more points, volume points must correspond to time points
+
+    private val samples = intArrayOf(
+        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 30,
+        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 30,
+        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 30,
+        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 30,
+        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 30,
+        50, 60
+    )
+
+    private val fadeInBegin = intArrayOf(0, 15, 35, 75)
+    private val fadeOutEnd = intArrayOf(90, 60, 30, 50, 60)
+
+    private fun IntArray.setFadeIn(): IntArray {
+        val list = this.toMutableList()
+        list[0] = fadeInBegin[0]
+        list[1] = fadeInBegin[1]
+        list[2] = fadeInBegin[2]
+        list[3] = fadeInBegin[3]
+        return list.toIntArray()
+    }
+
+    private fun IntArray.setFadeOut(): IntArray {
+        val list = this.toMutableList()
+        list[list.size - 4] = fadeOutEnd[0]
+        list[list.size - 3] = fadeOutEnd[1]
+        list[list.size - 2] = fadeOutEnd[2]
+        list[list.size - 1] = fadeOutEnd[3]
+        return list.toIntArray()
+    }
+
     private var hasInitialized: Boolean = false
     private var mSoundFile: SoundFile? = null
 
     private lateinit var player: MediaPlayer
-
-    private var currentFadeIn: VolumeShaper? = null
-    private var currentFadeOut: VolumeShaper? = null
 
     private var leftBorderMillis: Int = 0
     private var rightBorderMillis: Int = 0
@@ -37,11 +68,6 @@ class EditPodcastActivity : AppCompatActivity() {
     private lateinit var mGestureDetector: GestureDetector
     private lateinit var mScaleGestureDetector: ScaleGestureDetector
 
-    private lateinit var mLenByZoomLevel: IntArray
-    private lateinit var mValuesByZoomLevel: Array<DoubleArray?>
-    private lateinit var mZoomFactorByZoomLevel: DoubleArray
-    private lateinit var mHeightsAtThisZoomLevel: IntArray
-
     private var mZoomLevel = 0
     private var mNumZoomLevels = 0
 
@@ -54,68 +80,104 @@ class EditPodcastActivity : AppCompatActivity() {
 
         player.setOnCompletionListener {
             currentPositionMillis = leftBorderMillis
-
-            currentFadeIn?.close()
-            currentFadeIn = null
-
-            currentFadeOut?.close()
-            currentFadeOut = null
-
             isPlaying = false
+            waveformSeekBar.progress = 0
         }
-    }
 
-    fun fadeOutConfig(duration: Long): VolumeShaper.Configuration {
-        val times = floatArrayOf(0f, 1f) // can add more points, volume points must correspond to time points
-        val volumes = floatArrayOf(1f, 0f)
-        return VolumeShaper.Configuration.Builder()
-            .setDuration(duration)
-            .setCurve(times, volumes)
-            .setInterpolatorType(VolumeShaper.Configuration.INTERPOLATOR_TYPE_CUBIC)
-            .build()
-    }
-
-    fun fadeInConfig(duration: Long): VolumeShaper.Configuration {
-        val times = floatArrayOf(0f, 1f) // can add more points, volume points must correspond to time points
-        val volumes = floatArrayOf(0f, 1f)
-        return VolumeShaper.Configuration.Builder()
-            .setDuration(duration)
-            .setCurve(times, volumes)
-            .setInterpolatorType(VolumeShaper.Configuration.INTERPOLATOR_TYPE_CUBIC)
-            .build()
+        waveformSeekBar.sample = samples
     }
 
     fun onPlayStopButtonClick(view: View) {
+        if(player.currentPosition >= rightBorderMillis) {
+            isPlaying = false
+            currentPositionMillis = 0
+        }
+
         if (isPlaying) {
             player.pause()
             currentPositionMillis = player.currentPosition
+            progressFuture?.cancel(true)
         } else { // not playing
             currentPositionMillis =
                 if (currentPositionMillis == null) leftBorderMillis
                 else currentPositionMillis
 
+            startWork(currentPositionMillis!!)
+
             currentPositionMillis!!.also { currentPositionMillis ->
                 player.seekTo(currentPositionMillis)
 
                 if (isFadeIn && currentPositionMillis - 1L <= leftBorderMillis) {
-                    currentFadeIn = player.createVolumeShaper(fadeInConfig(5L)).also { it.apply(VolumeShaper.Operation.PLAY) }
-                    Executors.newSingleThreadScheduledExecutor().schedule({ currentFadeIn?.close() }, 2L, TimeUnit.SECONDS)
-                } else {
-                    currentFadeIn?.close()
-                    currentFadeIn = null
+                    val periods = 50L
+                    val duration = 3L
+
+                    var volume = 0.0f.also { player.setVolume(it, it) }
+                    val future = Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate({
+                        volume += 1.0f / periods
+                        player.setVolume(volume, volume)
+                    }, (duration * 1000) / periods, (duration * 1000) / periods, TimeUnit.MILLISECONDS)
+                    Executors.newSingleThreadScheduledExecutor().schedule({
+                        future.cancel(true)
+                        player.setVolume(1f, 1f)
+                    }, duration, TimeUnit.SECONDS)
+
+                    /*val fadeInTimeout = 5L
+                    currentFadeIn = player.createVolumeShaper(fadeInConfig(fadeInTimeout)).also { it.apply(VolumeShaper.Operation.PLAY) }
+                    Executors.newSingleThreadScheduledExecutor().schedule({ currentFadeIn?.close() }, fadeInTimeout, TimeUnit.SECONDS)*/
                 }
 
                 if(isFadeOut) {
-                    currentFadeOut = player.createVolumeShaper(fadeOutConfig(5L)).also { it.apply(VolumeShaper.Operation.PLAY) }
-                } else {
-                    currentFadeOut?.close()
-                    currentFadeOut = null
+                    val periods = 50L
+                    val duration = 3L
+
+                    var volume = 1.0f.also { player.setVolume(it, it) }
+                    val future = Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate({
+                        volume -= 1.0f / 20
+                        player.setVolume(volume, volume)
+                    }, (duration * 1000) / periods, (duration * 1000) / periods, TimeUnit.MILLISECONDS)
+                    Executors.newSingleThreadScheduledExecutor().schedule({
+                        future.cancel(true)
+                        player.setVolume(.0f, .0f)
+                    }, duration, TimeUnit.SECONDS)
+
+                    /*val fadeOutTimeout = 5L
+                    currentFadeOut = player.createVolumeShaper(fadeOutConfig(fadeOutTimeout)).also { it.apply(VolumeShaper.Operation.PLAY) }*/
                 }
 
                 player.start()
             }
         }
         isPlaying = !isPlaying
+    }
+
+    private var progressFuture: ScheduledFuture<*>? = null
+    fun startWork(from: Int) {
+        if(progressFuture != null) {
+            progressFuture!!.cancel(true)
+            progressFuture = null
+            updateWaveFormProgress()
+        }
+
+        val timeLeft = (player.duration - player.currentPosition)
+        progressFuture = Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate({
+            updateWaveFormProgress()
+            runOnUiThread { updateWaveFormProgress() }
+        }, 250, 250, TimeUnit.MILLISECONDS)
+        Executors.newSingleThreadScheduledExecutor().schedule({
+            if(progressFuture != null) {
+                progressFuture!!.cancel(true)
+                progressFuture = null
+            }
+            updateWaveFormProgress(samples.size)
+        }, timeLeft.toLong(), TimeUnit.MILLISECONDS)
+    }
+
+    fun updateWaveFormProgress(value: Int? = null) {
+        if(value!= null) {
+            waveformSeekBar.progress = value
+        } else {
+            waveformSeekBar.progress = samples.size * player.currentPosition/player.duration
+        }
     }
 
     fun onRollbackButtonClick(view: View) {
@@ -127,172 +189,30 @@ class EditPodcastActivity : AppCompatActivity() {
     }
 
     fun onFadeInButtonClick(view: View) {
-        if (isFadeIn) {
-
-        } else {
-
-        }
-
         isFadeIn = !isFadeIn
+        waveformSeekBar.sample = samples.let {
+            var arr = it
+            if (isFadeIn) {
+                arr = arr.setFadeIn()
+            }
+            if (isFadeOut) {
+                arr = arr.setFadeOut()
+            }
+            arr
+        }
     }
 
     fun onFadeOutButtonClick(view: View) {
-        if (isFadeOut) {
-
-        } else {
-
-        }
-
         isFadeOut = !isFadeOut
-    }
-
-    /*override fun onResume() {
-        super.onResume()
-
-        val barWidth = appBarLayout.width
-        val barHeight = appBarLayout.height
-        for(i in 0..72) {
-            val layoutWidth = 720
-            val layoutHeight = 122
-
-            val volume = (i % 9)
-            val volumeWidth = (layoutWidth / 72) - 3
-            val volumeHeight = (volume + 1) * (layoutHeight / 8)
-
-            val imageView = ImageView(applicationContext)
-            imageView.scaleType = ImageView.ScaleType.FIT_XY
-            imageView.layoutParams = LinearLayout.LayoutParams(volumeWidth, volumeHeight, 1.0F)
-//            imageView.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0F)
-            val imageId = when(volume) {
-                0, 1 -> R.drawable.volume_1
-                2 -> R.drawable.volume_2
-                3 -> R.drawable.volume_3
-                4 -> R.drawable.volume_4
-                5 -> R.drawable.volume_5
-                6 -> R.drawable.volume_6
-                7 -> R.drawable.volume_7
-                8 -> R.drawable.volume_8
-                else -> throw IllegalStateException()
+        waveformSeekBar.sample = samples.let {
+            var arr = it
+            if (isFadeIn) {
+                arr = arr.setFadeIn()
             }
-            imageView.setImageResource(imageId)
-            waveformLayout.addView(imageView)
-        }
-    }*/
-
-    private fun computeDoublesForAllZoomLevels() {
-        val numFrames = mSoundFile!!.numFrames
-        val frameGains = mSoundFile!!.frameGains
-        val smoothedGains = DoubleArray(numFrames)
-        when {
-            numFrames == 1 -> {
-                smoothedGains[0] = frameGains[0].toDouble()
+            if (isFadeOut) {
+                arr = arr.setFadeOut()
             }
-            numFrames == 2 -> {
-                smoothedGains[0] = frameGains[0].toDouble()
-                smoothedGains[1] = frameGains[1].toDouble()
-            }
-            numFrames > 2 -> {
-                smoothedGains[0] = (frameGains[0] / 2.0 + frameGains[1] / 2.0)
-                for (i in 1 until numFrames - 1) {
-                    smoothedGains[i] = (frameGains[i - 1] / 3.0 + frameGains[i] / 3.0 + frameGains[i + 1] / 3.0)
-                }
-                smoothedGains[numFrames - 1] = (frameGains[numFrames - 2] / 2.0 + frameGains[numFrames - 1] / 2.0)
-            }
+            arr
         }
-
-        // Make sure the range is no more than 0 - 255
-        var maxGain = 1.0
-        for (i in 0 until numFrames) {
-            if (smoothedGains[i] > maxGain) {
-                maxGain = smoothedGains[i]
-            }
-        }
-        var scaleFactor = 1.0
-        if (maxGain > 255.0) {
-            scaleFactor = 255 / maxGain
-        }
-
-        // Build histogram of 256 bins and figure out the new scaled max
-        maxGain = 0.0
-        val gainHist = IntArray(256)
-        for (i in 0 until numFrames) {
-            var smoothedGain = (smoothedGains[i] * scaleFactor).toInt()
-            if (smoothedGain < 0) smoothedGain = 0
-            if (smoothedGain > 255) smoothedGain = 255
-            if (smoothedGain > maxGain) maxGain = smoothedGain.toDouble()
-            gainHist[smoothedGain]++
-        }
-
-        // Re-calibrate the min to be 5%
-        var minGain = 0.0
-        var sum = 0
-        while (minGain < 255 && sum < numFrames / 20) {
-            sum += gainHist[minGain.toInt()]
-            minGain++
-        }
-
-        // Re-calibrate the max to be 99%
-        sum = 0
-        while (maxGain > 2 && sum < numFrames / 100) {
-            sum += gainHist[maxGain.toInt()]
-            maxGain--
-        }
-
-        // Compute the heights
-        val heights = DoubleArray(numFrames)
-        val range = maxGain - minGain
-        for (i in 0 until numFrames) {
-            var value = (smoothedGains[i] * scaleFactor - minGain) / range
-            if (value < 0.0) value = 0.0
-            if (value > 1.0) value = 1.0
-            heights[i] = value * value
-        }
-
-        mNumZoomLevels = 5
-        mLenByZoomLevel = IntArray(5)
-        mZoomFactorByZoomLevel = DoubleArray(5)
-        mValuesByZoomLevel = arrayOfNulls<DoubleArray>(5)
-
-        // Level 0 is doubled, with interpolated values
-        mLenByZoomLevel[0] = numFrames * 2
-        mZoomFactorByZoomLevel[0] = 2.0
-        mValuesByZoomLevel[0] = DoubleArray(mLenByZoomLevel[0]).also { valuesAtZoom ->
-            if (numFrames > 0) {
-                valuesAtZoom[0] = 0.5 * heights[0]
-                valuesAtZoom[1] = heights[0]
-            }
-            for (i in 1 until numFrames) {
-                valuesAtZoom[2 * i] = 0.5 * (heights[i - 1] + heights[i])
-                valuesAtZoom[2 * i + 1] = heights[i]
-            }
-        }
-
-        // Level 1 is normal
-        mLenByZoomLevel[1] = numFrames
-        mValuesByZoomLevel[1] = DoubleArray(mLenByZoomLevel[1]).also { valuesAtZoom ->
-            mZoomFactorByZoomLevel[1] = 1.0
-            for (i in 0 until mLenByZoomLevel[1]) {
-                valuesAtZoom[i] = heights[i]
-            }
-        }
-
-        // 3 more levels are each halved
-        for (j in 2..4) {
-            mLenByZoomLevel[j] = mLenByZoomLevel[j - 1] / 2
-            mValuesByZoomLevel[j] = DoubleArray(mLenByZoomLevel[j])
-            mZoomFactorByZoomLevel[j] = mZoomFactorByZoomLevel[j - 1] / 2.0
-            for (i in 0 until mLenByZoomLevel[j]) {
-                mValuesByZoomLevel[j]!![i] = 0.5 * (mValuesByZoomLevel[j - 1]!![2 * i] +
-                        mValuesByZoomLevel[j - 1]!![2 * i + 1])
-            }
-        }
-
-        mZoomLevel = when {
-            numFrames > 5000 -> 3
-            numFrames > 1000 -> 2
-            numFrames > 300 -> 1
-            else -> 0
-        }
-        hasInitialized = true
     }
 }
