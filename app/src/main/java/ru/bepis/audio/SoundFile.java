@@ -248,7 +248,7 @@ public class SoundFile {
                         && sample_size == 2) {
                     // For some reasons on some devices (e.g. the Samsung S3) you should not
                     // provide the first two bytes of an AAC stream, otherwise the MediaCodec will
-                    // crash. These two bytes do not contain music data but basic info on the
+                    // crash. These two bytes do not contain music_active data but basic info on the
                     // stream (e.g. channel configuration and sampling frequency), and skipping them
                     // seems OK with other devices (MediaCodec has already been configured and
                     // already knows these parameters).

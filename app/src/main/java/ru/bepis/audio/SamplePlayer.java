@@ -165,7 +165,7 @@ public class SamplePlayer {
         stop();
         mPlaybackStart = (int) (msec * (mSampleRate / 1000.0));
         if (mPlaybackStart > mNumSamples) {
-            mPlaybackStart = mNumSamples;  // Nothing to play...
+            mPlaybackStart = mNumSamples;  // Nothing to play_active...
         }
         mAudioTrack.setNotificationMarkerPosition(mNumSamples - 1 - mPlaybackStart);
         if (wasPlaying) {
