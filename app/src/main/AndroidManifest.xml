@@ -26,6 +26,14 @@
         <activity android:name=".activity.NewPodcastActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
+
+        </activity>
+        <activity android:name=".activity.ViewPodcastActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".activity.EndActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity android:name=".activity.AudioTrimmerActivity">
