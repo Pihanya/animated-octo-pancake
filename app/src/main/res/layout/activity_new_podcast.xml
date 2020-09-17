@@ -61,12 +61,40 @@
 
                         <ImageView
                             android:layout_marginStart="24dp"
+                            android:id="@+id/iconViewForm"
+                            android:onClick="onPickImageClick"
                             android:layout_marginTop="24dp"
                             android:layout_marginEnd="24dp"
                             android:src="@drawable/photo"
                             android:layout_width="25dp" android:layout_height="25dp"
                             />
+
+                        <FrameLayout
+                            android:id="@+id/loadedImageLayout"
+                            android:layout_width="77dp"
+                            android:layout_height="77dp"
+                            android:visibility="gone"
+                            >
+
+                            <ImageView
+                                android:id="@+id/imageView"
+                                android:layout_width="match_parent"
+                                android:layout_height="160dp"
+                                />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@android:drawable/ic_menu_close_clear_cancel"
+
+                                android:onClick="onRemoveImageClick"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_gravity="top|right"/>
+
+                        </FrameLayout>
                     </LinearLayout>
+
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -159,6 +187,7 @@
                         android:id="@+id/podcastCreateButton"
                         android:layout_gravity="center"
                         style="?android:attr/borderlessButtonStyle"
+                        android:onClick="onPickAudioClick"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:background="@drawable/btn_bg"
