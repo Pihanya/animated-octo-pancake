@@ -29,25 +29,28 @@ class ViewPodcastActivity : AppCompatActivity() {
         Store.duration = "12:34"
         duration.text = "Длительность: ${Store.duration}"
 
-        val timecode = LinearLayout(this);
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        params.topMargin = 10
-        params.leftMargin = 5
-        timecode.layoutParams = params
+        for (timeCodeModel in Store.timeCodes) {
+            val timecode = LinearLayout(this);
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            params.topMargin = 10
+            params.leftMargin = 5
+            timecode.layoutParams = params
 
-        val time = TextView(this)
-        time.textSize = 15.toFloat()
-        time.text = "22:22"
-        time.setTextColor(resources.getColor(R.color.colorAccent))
-        val description = TextView(this)
-        description.textSize = 15.toFloat()
-        description.text = "  -  Кормлю енотов"
-        timecode.addView(time)
-        timecode.addView(description)
+            val time = TextView(this)
+            time.textSize = 15.toFloat()
+            time.text = timeCodeModel.split(" - ")[0]
+            time.setTextColor(resources.getColor(R.color.colorAccent))
+            val description = TextView(this)
+            description.textSize = 15.toFloat()
+            description.text = "  -  ${timeCodeModel.split(" - ")[1]}"
+            timecode.addView(time)
+            timecode.addView(description)
 
-        timecodesLayout.addView(timecode)
+            timecodesLayout.addView(timecode)
+        }
+
     }
 
     fun onPodcastCreateButtonClicked(view: View) {
