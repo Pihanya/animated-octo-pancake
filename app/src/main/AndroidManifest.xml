@@ -36,9 +36,8 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".activity.AudioTrimmerActivity">
-
-        </activity>
+        <activity android:name=".activity.AudioTrimmerActivity"/>
+        <activity android:name=".activity.EditPodcastActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

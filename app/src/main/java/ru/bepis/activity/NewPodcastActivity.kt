@@ -11,6 +11,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_new_podcast.*
 import ru.bepis.R
+import ru.bepis.utils.Store
 import java.io.BufferedInputStream
 import java.io.InputStream
 
@@ -46,7 +47,10 @@ class NewPodcastActivity : AppCompatActivity() {
 //                fundView.image = bmp
 
                 val name = getFileName(uri!!)
-                trackName.text = name
+
+                Store.audioUri = uri
+                Store.audioFilename = name
+
                 pickedTrackLayout.visibility = View.VISIBLE
                 TrackForm.visibility = View.GONE
             }
