@@ -68,7 +68,7 @@ class NewPodcastActivity : AppCompatActivity() {
                 val minutes = minutesInt.toString().padStart(2, '0')
                 val secondsInt = (durationMillis/1000/60 - minutesInt*60)
                 val seconds = (if (secondsInt < 0) 0 else secondsInt).toString().padStart(2, '0')
-                val durationStr = "${minutes}:${seconds} -> ${durationMillis}"
+                val durationStr = "${minutes}:${seconds}"
                 Store.duration = durationStr
 
                 durationText.text = durationStr
