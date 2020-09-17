@@ -34,7 +34,7 @@ class EditPodcastActivity : AppCompatActivity() {
     private val progressSteps = 100;
 
     private val fadeInBegin = intArrayOf(0, 15, 35, 75)
-    private val fadeOutEnd = intArrayOf(90, 60, 30, 50, 60)
+    private val fadeOutEnd = intArrayOf(75, 40, 35, 15, 0)
 
     private fun IntArray.setFadeIn(): IntArray {
         val list = this.toMutableList()
@@ -91,9 +91,10 @@ class EditPodcastActivity : AppCompatActivity() {
         waveformSeekBar.sample = samples
         waveformSeekBar.onProgressChanged = object : SeekBarOnProgressChanged {
             override fun onProgressChanged(waveformSeekBar: WaveformSeekBar, progress: Int, fromUser: Boolean) {
-
                 if (fromUser) {
-                    player.seekTo((player.duration.toFloat() * (progress.toFloat() / progressSteps)).toInt());
+                    var selectedTime = (player.duration.toFloat() * (progress.toFloat() / progressSteps)).toInt();
+                    currentPositionMillis = selectedTime;
+                    player.seekTo(selectedTime);
                 }
             }
         }
@@ -103,6 +104,7 @@ class EditPodcastActivity : AppCompatActivity() {
         if(player.currentPosition >= rightBorderMillis) {
             isPlaying = false
             currentPositionMillis = 0
+            waveformSeekBar.progress = 0
         }
 
         if (isPlaying) {
@@ -111,7 +113,8 @@ class EditPodcastActivity : AppCompatActivity() {
             progressFuture?.cancel(true)
         } else { // not playing
             currentPositionMillis =
-                if (currentPositionMillis == null) leftBorderMillis
+                if (currentPositionMillis == null && player.currentPosition > 0) player.currentPosition
+                else if (currentPositionMillis == null) leftBorderMillis
                 else currentPositionMillis
 
             startWork(currentPositionMillis!!)
@@ -192,10 +195,6 @@ class EditPodcastActivity : AppCompatActivity() {
         } else {
             waveformSeekBar.progress = 0;
         }
-    }
-
-    fun onProgressChanged(waveformSeekBar: WaveformSeekBar, progress: Int, fromUser: Boolean) {
-
     }
 
     fun onRollbackButtonClick(view: View) {
