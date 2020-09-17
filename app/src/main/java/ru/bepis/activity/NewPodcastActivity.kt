@@ -63,7 +63,10 @@ class NewPodcastActivity : AppCompatActivity() {
                 val minutesInt = durationMillis/1000/60
                 val minutes = minutesInt.toString().padStart(2, '0')
                 val seconds = (durationMillis/1000/60 - minutesInt*60).toString().padStart(2, '0')
-                durationText.text = "${minutes}:${seconds}"
+                val durationStr = "${minutes}:${seconds}"
+                Store.duration = durationStr
+
+                durationText.text = durationStr
                 trackName.text = name
 
                 pickedTrackLayout.visibility = View.VISIBLE

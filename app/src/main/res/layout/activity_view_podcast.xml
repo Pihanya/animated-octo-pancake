@@ -46,7 +46,8 @@
                 android:paddingEnd="16dp"
                 android:paddingRight="16dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="74dp">
                     <LinearLayout
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -56,28 +57,12 @@
                         android:background="#F2F3F5"
                         android:layout_height="match_parent">
 
-                        <FrameLayout
-                            android:id="@+id/loadedImageLayout"
-                            android:layout_width="77dp"
-                            android:layout_height="77dp"
-                            >
-
                             <ImageView
                                 android:id="@+id/imageView"
-                                android:layout_width="match_parent"
-                                android:layout_height="160dp"
+                                android:layout_width="77dp"
+                                android:layout_height="77dp"
                                 />
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@android:drawable/ic_menu_close_clear_cancel"
 
-                                android:onClick="onRemoveImageClick"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_gravity="top|right"/>
-
-                        </FrameLayout>
                     </LinearLayout>
 
                     <TextView
@@ -85,7 +70,9 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/title"
                         android:text="Подкаст прекрасный людей"
-                        app:layout_constraintHorizontal_bias="0.01"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorBlack"
+                        app:layout_constraintHorizontal_bias="0.05"
                         app:layout_constraintLeft_toRightOf="@+id/avatarImageView"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -93,7 +80,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Сообщество Пара догс"
-                        app:layout_constraintHorizontal_bias="0.01"
+                        android:textSize="13sp"
+                        android:textColor="@color/colorAccent"
+                        app:layout_constraintHorizontal_bias="0.05"
                         app:layout_constraintLeft_toRightOf="@+id/avatarImageView"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/title"
@@ -102,8 +91,9 @@
                         android:id="@+id/duration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="13sp"
                         android:text="Длительность: 59: 16"
-                        app:layout_constraintHorizontal_bias="0.01"
+                        app:layout_constraintHorizontal_bias="0.05"
                         app:layout_constraintLeft_toRightOf="@+id/avatarImageView"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
@@ -120,6 +110,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorBlack"
                         android:text="Описание подкаста"></TextView>
 
                     <TextView
@@ -132,42 +124,29 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/timecodesLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingTop="20dp">
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorBlack"
                         android:layout_marginLeft="5dp"
                         android:text="Таймкоды"></TextView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="05:41 - Начало обсуждения"></TextView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="05:41 - Начало обсуждения"></TextView>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="05:41 - Начало обсуждения"></TextView>
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/buttonNext"
-
                     app:layout_constraintBottom_toBottomOf="parent"
+                    android:onClick="onPodcastCreateButtonClicked"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/btn_bg"
-                    android:paddingBottom="5dp"
                     android:text="Опубликовать подкаст"
                     android:textAllCaps="false"
 
