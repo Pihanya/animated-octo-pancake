@@ -94,6 +94,7 @@ class EditPodcastActivity : AppCompatActivity() {
         player.setOnCompletionListener {
             currentPositionMillis = leftBorderMillis
             isPlaying = false
+            toggleButtonVisuals("play", playStopButton, false);
             waveformSeekBar.progress = 0
         }
 
@@ -120,7 +121,9 @@ class EditPodcastActivity : AppCompatActivity() {
     fun onPlayStopButtonClick(view: View) {
         if(player.currentPosition >= rightBorderMillis) {
             isPlaying = false
+            toggleButtonVisuals("play", playStopButton, false);
             currentPositionMillis = 0
+            updateWaveFormProgress(0);
             waveformSeekBar.progress = 0
         }
 
@@ -180,6 +183,7 @@ class EditPodcastActivity : AppCompatActivity() {
             }
         }
         isPlaying = !isPlaying
+        toggleButtonVisuals("play", playStopButton, isPlaying);
     }
 
     private var progressFuture: ScheduledFuture<*>? = null
@@ -229,6 +233,7 @@ class EditPodcastActivity : AppCompatActivity() {
 
     fun onFadeInButtonClick(view: View) {
         isFadeIn = !isFadeIn
+        toggleButtonVisuals("bar_chart_1", fadeInButton, isFadeIn);
         waveformSeekBar.sample = samples.let {
             var arr = it
             if (isFadeIn) {
@@ -243,6 +248,7 @@ class EditPodcastActivity : AppCompatActivity() {
 
     fun onFadeOutButtonClick(view: View) {
         isFadeOut = !isFadeOut
+        toggleButtonVisuals("bar_chart_2", fadeOutButton, isFadeOut);
         waveformSeekBar.sample = samples.let {
             var arr = it
             if (isFadeIn) {
