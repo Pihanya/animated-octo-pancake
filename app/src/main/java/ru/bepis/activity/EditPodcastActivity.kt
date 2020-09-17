@@ -1,5 +1,6 @@
 package ru.bepis.activity
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.GestureDetector
@@ -199,6 +200,11 @@ class EditPodcastActivity : AppCompatActivity() {
 
     fun onRollbackButtonClick(view: View) {
 
+    }
+
+    fun onMusicButtonClick(view: View) {
+        val intent = Intent(this, NewPodcastActivity::class.java)
+        startActivity(intent)
     }
 
     fun onCutButtonClick(view: View) {
