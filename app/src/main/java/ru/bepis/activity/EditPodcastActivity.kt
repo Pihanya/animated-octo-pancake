@@ -135,6 +135,11 @@ class EditPodcastActivity : AppCompatActivity() {
             toggleButtonVisuals("music", musicButton, false);
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        player.release()
+    }
     fun onPlayStopButtonClick(view: View) {
         if(player.currentPosition >= rightBorderMillis) {
             isPlaying = false
