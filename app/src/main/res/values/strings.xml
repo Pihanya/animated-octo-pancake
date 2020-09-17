@@ -26,4 +26,8 @@
     <string name="choose_music_activity_default_track_name">All of the Lights</string>
     <string name="choose_music_activity_default_track_artist">Kanye West</string>
     <string name="choose_music_activity_default_track_duration">5:00</string>
+
+    <string name="end_activity_title">Подкаст добавлен</string>
+    <string name="end_activity_description">Расскажите своим подписчикам о новом подкасте, чтобы получить больше слушателей.</string>
+    <string name="end_activity_description_button_text">Поделиться подкастом</string>
 </resources>

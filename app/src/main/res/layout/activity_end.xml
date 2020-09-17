@@ -67,7 +67,7 @@
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:fontWeight="600"
-            android:text="@string/main_placeholder"
+            android:text="@string/end_activity_title"
             android:textAlignment="center"
             android:textColor="@color/colorBlackText"
             android:textFontWeight="600"
@@ -81,7 +81,7 @@
             android:layout_marginBottom="24dp"
             android:fontFamily="@font/roboto"
             android:letterSpacing="-0.02"
-            android:text="Расскажите своим подспичикам\nо новом подкасте, чтобы получить\nбольше слушателей"
+            android:text="@string/end_activity_description"
             android:textAlignment="center"
             android:textColor="@color/colorPlaceholder"
             android:textSize="16dp"
@@ -102,12 +102,12 @@
             android:paddingTop="0dp"
             android:paddingRight="16dp"
             android:paddingBottom="0dp"
-            android:text="@string/main_btn"
+            android:text="@string/end_activity_description_button_text"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryText"
             android:textSize="15dp"
-            tools:text="@string/main_btn" />
+            tools:text="@string/end_activity_description_button_text" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
