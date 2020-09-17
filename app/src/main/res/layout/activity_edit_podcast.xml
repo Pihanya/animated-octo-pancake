@@ -45,12 +45,12 @@
         android:id="@+id/musicPlayerWithControlsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/media_player_bg"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingEnd="16dp"
-        android:paddingRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,19 +60,22 @@
             android:layout_width="match_parent"
             android:layout_height="122dp" />-->
         <com.masoudss.lib.WaveformSeekBar
-                android:id="@+id/waveformSeekBar"
+            android:id="@+id/waveformSeekBar"
 
 
-                app:wave_progress="0"
-                app:wave_width="5dp"
-                app:wave_gap="2dp"
-                app:wave_min_height="5dp"
-                app:wave_corner_radius="2dp"
-                app:wave_background_color="@color/waveFormBackgroundColor"
-                app:wave_progress_color="@color/waveFormProgressColor"
-                app:wave_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="122dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="122dp"
+            android:background="@drawable/media_player_wave_bg"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            app:wave_background_color="#4D3F8AE0"
+            app:wave_corner_radius="2dp"
+            app:wave_gap="2dp"
+            app:wave_gravity="center"
+            app:wave_min_height="5dp"
+            app:wave_progress="0"
+            app:wave_progress_color="@color/waveFormProgressColor"
+            app:wave_width="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,6 +90,7 @@
                 android:layout_height="44dp"
                 android:layout_weight="0"
                 android:background="@drawable/brn_icon_primary_bg"
+                android:onClick="onPlayStopButtonClick"
                 android:paddingStart="16dp"
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
@@ -94,10 +98,8 @@
                 android:paddingRight="11dp"
                 android:paddingBottom="12dp"
                 android:scaleType="fitStart"
-                app:srcCompat="@drawable/play"
 
-                android:onClick="onPlayStopButtonClick"
-            />
+                app:srcCompat="@drawable/play" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -108,24 +110,24 @@
 
                 <ImageButton
                     android:id="@+id/cutButton"
-                    android:onClick="onCutButtonClick"
-
                     android:layout_width="44dp"
+
                     android:layout_height="44dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
                     android:background="@drawable/brn_icon_light_bg"
+                    android:onClick="onCutButtonClick"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/scissors" />
 
                 <ImageButton
                     android:id="@+id/rollbackButton"
-                    android:onClick="onRollbackButtonClick"
-
                     android:layout_width="44dp"
+
                     android:layout_height="44dp"
                     android:background="@drawable/brn_icon_light_bg"
+                    android:onClick="onRollbackButtonClick"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/revert" />
@@ -142,32 +144,32 @@
                     android:layout_height="44dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:onClick="onMusicButtonClicked"
                     android:background="@drawable/brn_icon_light_bg"
+                    android:onClick="onMusicButtonClicked"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/music" />
 
                 <ImageButton
-                        android:id="@+id/fadeInButton"
-                        android:onClick="onFadeInButtonClick"
-
+                    android:id="@+id/fadeInButton"
                     android:layout_width="44dp"
+
                     android:layout_height="44dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
                     android:background="@drawable/brn_icon_light_bg"
+                    android:onClick="onFadeInButtonClick"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/bar_chart_1" />
 
                 <ImageButton
                     android:id="@+id/fadeOutButton"
-                    android:onClick="onFadeOutButtonClick"
-
                     android:layout_width="44dp"
+
                     android:layout_height="44dp"
                     android:background="@drawable/brn_icon_light_bg"
+                    android:onClick="onFadeOutButtonClick"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/bar_chart_2" />
