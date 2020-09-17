@@ -12,6 +12,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="main_btn">Добавить подкаст</string>
+    <string name="attach_file">Загрузить файл</string>
     <string name="main_placeholder">Добавьте первый подкаст</string>
     <string name="sub_placeholder">Добавляйте, редактируйте и делитесь подкастами вашего сообщества.</string>
 

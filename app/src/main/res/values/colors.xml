@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#4986CC</color>
 
+    <color name="colorLayoutBackground">#F2F3F5</color>
     <color name="colorPlaceholder">#818C99</color>
     <color name="colorPrimaryBg">#FFFFFF</color>
     <color name="colorPrimaryText">#FFFFFF</color>
