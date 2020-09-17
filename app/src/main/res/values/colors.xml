@@ -11,6 +11,7 @@
     <color name="colorPrimaryText">#FFFFFF</color>
     <color name="colorSecondaryText">#000000</color>
     <color name="colorIconButtonBg">#F2F3F5</color>
+    <color name="colorLightInputBg">#E8EDF0</color>
 
     <color name="colorAlmostBlackText">#2C2D2E</color>
     <color name="colorBlackText">#000000</color>

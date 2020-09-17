@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="6dp"
+    android:paddingTop="6dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_weight="0"
+        tools:srcCompat="@drawable/music_album" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:fontFamily="@font/roboto"
+            android:letterSpacing="0.01"
+            android:text="@string/choose_music_activity_default_track_name"
+            android:textColor="@color/colorBlackText"
+            android:textSize="16dp"
+            app:lineHeight="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:letterSpacing="0.02"
+            android:text="@string/choose_music_activity_default_track_artist"
+            android:textColor="@color/colorPlaceholder"
+            android:textSize="13dp"
+            app:lineHeight="16dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:fontFamily="@font/roboto"
+        android:letterSpacing="0.02"
+        android:text="@string/choose_music_activity_default_track_duration"
+        android:textColor="@color/colorPlaceholder"
+        android:textSize="13dp"
+        app:lineHeight="16dp" />
+
+    <ImageButton
+        android:layout_width="36dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:background="@android:color/transparent"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="17dp"
+        android:paddingEnd="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="17dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/more" />
+</LinearLayout>
