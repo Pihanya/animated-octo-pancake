@@ -1036,7 +1036,7 @@ public class AudioTrimmerActivity extends AppCompatActivity implements View.OnCl
         if (!externalRootDir.endsWith("/")) {
             externalRootDir += "/";
         }
-        subDir = "media/audio/music/";
+        subDir = "media/audio/music_active/";
         String parentDir = externalRootDir + subDir;
 
         // Create the parent directory

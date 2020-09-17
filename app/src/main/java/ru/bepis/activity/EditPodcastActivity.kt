@@ -7,6 +7,8 @@ import android.view.GestureDetector
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.masoudss.lib.SeekBarOnProgressChanged
 import com.masoudss.lib.WaveformSeekBar
@@ -36,7 +38,7 @@ class EditPodcastActivity : AppCompatActivity() {
     private val progressSteps = 100;
 
     private val fadeInBegin = intArrayOf(0, 15, 35, 75)
-    private val fadeOutEnd = intArrayOf(75, 40, 35, 15, 0)
+    private val fadeOutEnd = intArrayOf(50, 25, 35, 20, 0)
 
     private fun IntArray.setFadeIn(): IntArray {
         val list = this.toMutableList()
@@ -81,6 +83,12 @@ class EditPodcastActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_podcast)
 
+        if (Store.musicIsPicked) {
+            toggleButtonVisuals("music", musicButton, true);
+        } else {
+            toggleButtonVisuals("music", musicButton, false);
+        }
+
         player = MediaPlayer.create(this, Store.audioUri)
         rightBorderMillis = player.duration
 
@@ -102,6 +110,14 @@ class EditPodcastActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (Store.musicIsPicked) {
+            toggleButtonVisuals("music", musicButton, true);
+        } else {
+            toggleButtonVisuals("music", musicButton, false);
+        }
+    }
     fun onPlayStopButtonClick(view: View) {
         if(player.currentPosition >= rightBorderMillis) {
             isPlaying = false
@@ -248,6 +264,20 @@ class EditPodcastActivity : AppCompatActivity() {
                 arr = arr.setFadeOut()
             }
             arr
+        }
+    }
+
+    fun toggleButtonVisuals(base: String, button: ImageView, active: Boolean) {
+        if (active) {
+            var iconId = getResources().getIdentifier(base + "_active", "drawable", getPackageName());
+            var icon = getResources().getDrawable(iconId);
+            button.setBackgroundResource(R.drawable.btn_icon_primary_bg);
+            button.setImageDrawable(icon);
+        } else {
+            var iconId = getResources().getIdentifier(base, "drawable", getPackageName());
+            var icon = getResources().getDrawable(iconId);
+            button.setBackgroundResource(R.drawable.btn_icon_light_bg);
+            button.setImageDrawable(icon);
         }
     }
 }

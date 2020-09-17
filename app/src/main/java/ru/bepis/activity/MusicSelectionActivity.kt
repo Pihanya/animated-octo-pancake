@@ -20,6 +20,7 @@ class MusicSelectionActivity : AppCompatActivity() {
 
     fun onTrackClicked(view: View) {
         Store.musicIsPicked = true
+
         finish()
     }
 }
