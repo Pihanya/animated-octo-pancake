@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.ScaleGestureDetector
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.masoudss.lib.SeekBarOnProgressChanged
 import com.masoudss.lib.WaveformSeekBar
@@ -206,6 +207,17 @@ class EditPodcastActivity : AppCompatActivity() {
         val intent = Intent(this, MusicSelectionActivity::class.java)
         startActivity(intent)
     }
+
+    fun onNewTimeCodeClick(view: View) {
+        val layout = layoutInflater.inflate(R.layout.timecode_input_row, null, false) as LinearLayout
+        timecodesContainer.addView(layout)
+    }
+
+    fun onRemoveTimeCodeClick(view: View) {
+        val parent = view.parent
+        timecodesContainer.removeView(parent as View)
+    }
+
 
     fun onCutButtonClick(view: View) {
 

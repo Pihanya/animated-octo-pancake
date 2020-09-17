@@ -230,7 +230,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:onClick="onNewTimeCodeClicked"
+                    android:onClick="onNewTimeCodeClick"
                     android:paddingStart="4dp"
                     android:paddingLeft="4dp"
                     android:paddingTop="14dp"
