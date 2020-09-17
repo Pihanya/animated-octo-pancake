@@ -7,15 +7,12 @@ import android.view.GestureDetector
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.masoudss.lib.SeekBarOnProgressChanged
 import com.masoudss.lib.WaveformSeekBar
-import kotlinx.android.synthetic.main.activity_choose_music.*
 import kotlinx.android.synthetic.main.activity_edit_podcast.*
-import kotlinx.android.synthetic.main.activity_edit_podcast.headerToolbar
 import ru.bepis.R
 import ru.bepis.audio.SoundFile
 import ru.bepis.utils.Store
@@ -30,12 +27,11 @@ class EditPodcastActivity : AppCompatActivity() {
         floatArrayOf(0f, 0.25f, 0.5f, 0.75f, 1f) // can add more points, volume points must correspond to time points
 
     private val samples = intArrayOf(
-        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 30,
-        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 30,
-        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 30,
-        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 30,
-        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 30,
-        50, 60
+        50, 60, 70, 100, 125, 85, 75, 80, 235, 220, 150, 120, 90, 60, 50,
+        50, 110, 120, 130, 130, 130, 140, 125, 120, 115, 120, 110, 105, 100, 100,
+        100, 95, 90, 90, 80, 85, 90, 70, 70, 65, 70, 60, 65, 60, 70,
+        50, 60, 70, 100, 125, 85, 75, 70, 70, 65, 70, 60, 65, 60, 70,
+        50, 110, 120, 130, 130, 130, 140, 125, 120, 115, 120, 90
     )
 
     private val progressSteps = 100;
@@ -45,19 +41,19 @@ class EditPodcastActivity : AppCompatActivity() {
 
     private fun IntArray.setFadeIn(): IntArray {
         val list = this.toMutableList()
-        list[0] = fadeInBegin[0]
-        list[1] = fadeInBegin[1]
-        list[2] = fadeInBegin[2]
-        list[3] = fadeInBegin[3]
+        list[0] = (0.1 * fadeInBegin[0]).toInt()
+        list[1] = (0.25 * fadeInBegin[1]).toInt()
+        list[2] = (0.5 * fadeInBegin[2]).toInt()
+        list[3] = (0.75 * fadeInBegin[3]).toInt()
         return list.toIntArray()
     }
 
     private fun IntArray.setFadeOut(): IntArray {
         val list = this.toMutableList()
-        list[list.size - 4] = fadeOutEnd[0]
-        list[list.size - 3] = fadeOutEnd[1]
-        list[list.size - 2] = fadeOutEnd[2]
-        list[list.size - 1] = fadeOutEnd[3]
+        list[list.size - 4] = (0.75 * fadeOutEnd[0]).toInt()
+        list[list.size - 3] = (0.5 * fadeOutEnd[1]).toInt()
+        list[list.size - 2] = (0.25 * fadeOutEnd[2]).toInt()
+        list[list.size - 1] = (0.1 * fadeOutEnd[3]).toInt()
         return list.toIntArray()
     }
 
