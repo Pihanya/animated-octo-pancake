@@ -6,6 +6,9 @@
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#4986CC</color>
 
+    <color name="waveFormProgressColor">#3F8AE0</color>
+    <color name="waveFormBackgroundColor">#FCFCFC</color>
+
     <color name="colorLayoutBackground">#F2F3F5</color>
     <color name="colorPlaceholder">#818C99</color>
     <color name="colorPrimaryBg">#FFFFFF</color>
