@@ -94,4 +94,9 @@ class NewPodcastActivity : AppCompatActivity() {
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Select Audio"), 1)
     }
+
+    fun onPodcastCreateButtonClicked(view: View) {
+        val intent = Intent(this, ViewPodcastActivity::class.java)
+        startActivity(intent)
+    }
 }
