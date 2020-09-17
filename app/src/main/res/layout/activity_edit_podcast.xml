@@ -45,6 +45,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
+        android:id="@+id/musicPlayerWithControlsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -157,7 +158,11 @@
         android:paddingEnd="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="24dp"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+=======
+        app:layout_constraintTop_toBottomOf="@+id/musicPlayerWithControlsLayout"
+>>>>>>> a2a1163e716bde7e3a571efd3b30212497c9cb2f
         tools:layout_editor_absoluteX="32dp">
 
         <TextView
