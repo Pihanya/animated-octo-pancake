@@ -11,7 +11,6 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
         android:background="#ffffff"
         android:orientation="vertical"
     >
@@ -105,19 +104,6 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-=======
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Название"
-                        app:layout_constraintHorizontal_bias="0.01"
-                        app:layout_constraintLeft_toRightOf="@+id/avatarImageView"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
->>>>>>> a2a1163e716bde7e3a571efd3b30212497c9cb2f
                     <EditText
                                 android:id="@+id/nameEditText"
                                 android:layout_width="wrap_content"
@@ -164,6 +150,7 @@
                             android:textCursorDrawable="@drawable/cursor_color"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/TrackForm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -200,10 +187,7 @@
                         android:id="@+id/podcastCreateButton"
                         android:layout_gravity="center"
                         style="?android:attr/borderlessButtonStyle"
-<<<<<<< HEAD
                         android:onClick="onPickAudioClick"
-=======
->>>>>>> a2a1163e716bde7e3a571efd3b30212497c9cb2f
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:background="@drawable/btn_bg"
@@ -222,6 +206,76 @@
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="15dp"
                         tools:text="@string/main_btn" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:id="@+id/pickedTrackLayout"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:id="@+id/micro"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:background="#F2F3F5"
+                            android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_marginStart="12dp"
+                            android:onClick="onPickImageClick"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:src="@drawable/micro"
+                            android:layout_width="24dp" android:layout_height="24dp"
+                            />
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/trackName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/micro"
+                            android:paddingLeft="5dp"
+                            android:text="name"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:text="12:34"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Вы можете добавить таймкоды и сокрректировать подскаст в режиме редактирования"
+
+                        />
+                    <Button
+                        android:id="@+id/buttonEdit"
+                        android:layout_width="match_parent"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/btn_bg"
+                        android:enabled="false"
+                        android:paddingBottom="5dp"
+                        android:text="Редактировать"
+                        android:textAllCaps="false"
+
+                        android:textColor="#ffffff"/>
+
                 </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -266,7 +320,6 @@
                     android:textColor="#000000"
                     android:textSize="22sp"
                     />
-<<<<<<< HEAD
 
                 <TextView
                     android:id="@+id/textView9"
@@ -289,39 +342,10 @@
             </LinearLayout>
 
 
-=======
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="13dp"
-                    android:text="Всем пользователям"
-                    android:textSize="11sp"
-                    />
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:layout_marginTop="12dp"
-                    android:text="при публикации записи с эпизодом, он становится доступным для всех пользователей"
-                    />
-            </LinearLayout>
->>>>>>> a2a1163e716bde7e3a571efd3b30212497c9cb2f
 
                 <Button
                     android:id="@+id/buttonNext"
 
-<<<<<<< HEAD
-=======
-
-                <Button
-                    android:id="@+id/buttonNext"
-
->>>>>>> a2a1163e716bde7e3a571efd3b30212497c9cb2f
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
