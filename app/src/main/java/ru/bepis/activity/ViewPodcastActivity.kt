@@ -43,7 +43,7 @@ class ViewPodcastActivity : AppCompatActivity() {
     }
 
     fun onPodcastCreateButtonClicked(view: View) {
-        val intent = Intent(this, NewPodcastActivity::class.java)
+        val intent = Intent(this, EndActivity::class.java)
         startActivity(intent)
     }
 }
